@@ -38,7 +38,11 @@ class TelegramBase:
             # 組合 tag 語句
             texts = []
             for user in users:
-                text = '[{}](tg://user?id={})'.format(user['first_name'], user['id'])
+                name = user['first_name']
+                if user['username'] is not None and len(user['username']) > 0:
+                    name = '@' + user['username']
+                text = '[{}](tg://user?id={})'.format(name, user['id'])
+                # text = '[{}](tg://user?id={})'.format(user['first_name'], user['id'])
                 texts.append(text)
             msg = " ".join(texts)
 
