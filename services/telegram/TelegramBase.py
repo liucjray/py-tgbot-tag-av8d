@@ -25,6 +25,7 @@ class TelegramBase:
         self.bot = telegram.Bot(token=self.settings['token'])
 
     def tag_av8d(self, group_id):
+        # 轉換對應儲存的 group_id
         group_ids = [
             abs(group_id),
             abs(int(str(group_id)[3:]))
@@ -38,16 +39,23 @@ class TelegramBase:
             # 組合 tag 語句
             texts = []
             for user in users:
+                # 若有 username 則取為 @username
                 name = user['first_name']
                 if user['username'] is not None and len(user['username']) > 0:
                     name = '@' + user['username']
+
                 text = '[{}](tg://user?id={})'.format(name, user['id'])
-                # text = '[{}](tg://user?id={})'.format(user['first_name'], user['id'])
                 texts.append(text)
-            msg = " ".join(texts)
+
+            # 以十人為一次發送的單位
+            chunks_texts = chunks(texts, 10)
 
             try:
-                self.bot.send_message(group_id, msg, parse_mode="Markdown")
+                # 每十人傳一次訊息,避免標記後未顯示驚嘆號
+                for texts in chunks_texts:
+                    msg = " ".join(texts)
+                    self.bot.send_message(group_id, msg, parse_mode="Markdown")
+
                 # 若无错误抛出则跳出迴圈
                 break
             except Exception as e:
@@ -55,4 +63,4 @@ class TelegramBase:
                 continue
 
     def test_tag_av8d(self):
-        self.tag_av8d(1341783380)
+        self.tag_av8d(1129608054)

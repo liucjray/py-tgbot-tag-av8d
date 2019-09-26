@@ -37,3 +37,9 @@ def lno():
     import inspect
     """Returns the current line number in our program."""
     return inspect.currentframe().f_back.f_lineno
+
+
+def chunks(l, n):
+    """Yield successive n-sized chunks from l."""
+    for i in range(0, len(l), n):
+        yield l[i:i + n]
