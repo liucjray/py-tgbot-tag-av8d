@@ -44,7 +44,7 @@ class TelegramBase:
                 if user['username'] is not None and len(user['username']) > 0:
                     name = '@' + user['username']
 
-                text = '[{}](tg://user?id={})'.format(name, user['id'])
+                text = '[{}](tg://user?id={}) \n'.format(name, user['id'])
                 texts.append(text)
 
             # 以十人為一次發送的單位
