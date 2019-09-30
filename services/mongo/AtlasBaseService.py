@@ -27,8 +27,9 @@ class AtlasBaseService:
     def find_one(self, where={}):
         return self.repo.find_one(where)
 
-    def delete(self, where={}, update={}):
-        self.repo.delete(where, update)
+    def delete_by_group_id(self, group_id):
+        # dump('AtlasBaseService.delete_by_group_id')
+        self.repo.delete_by_group_id(group_id)
 
     def update(self, where={}, update={}):
         self.repo.update_one(where, update)

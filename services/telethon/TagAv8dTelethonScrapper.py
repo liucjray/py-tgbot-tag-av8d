@@ -22,6 +22,10 @@ class TagAv8dTelethonScrapper(TelethonBaseScrapper):
     def write(self, updates):
         self.atlasSer.write(updates)
 
+    def delete_by_group_id(self, group_id):
+        # dump('TagAv8dTelethonScrapper.delete_by_group_id')
+        self.atlasSer.delete_by_group_id(group_id)
+
     def test_write_group(self):
         # 爬取 groups 資訊
         self.set_app_client().is_auth()
@@ -46,6 +50,8 @@ class TagAv8dTelethonScrapper(TelethonBaseScrapper):
 
                 # 以人數判斷非外部公共群 (如: Python討論群等等)
                 if len_users < 100:
+                    print('delete users...' + grp_info)
+                    self.delete_by_group_id(grp.id)
                     print('write users...' + grp_info)
                     self.write(users)
                 if len_users <= 1:

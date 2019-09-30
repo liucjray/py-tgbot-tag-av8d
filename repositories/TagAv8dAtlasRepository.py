@@ -2,6 +2,17 @@ from repositories.AtlasBaseRepository import *
 
 
 class TagAv8dAtlasRepository(AtlasBaseRepository):
+
+    def delete_by_group_id(self, group_id):
+        try:
+            _filter = {
+                'group_id': group_id
+            }
+            res = self.collection.delete_many(_filter)
+            return res.deleted_count
+        except Exception as e:
+            print(__file__, e)
+
     def write(self, updates):
         try:
             for _update in updates:
