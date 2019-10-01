@@ -43,8 +43,8 @@ class TelegramBase:
                 name = user['first_name']
                 if user['username'] is not None and len(user['username']) > 0:
                     name = '@' + user['username']
-
-                text = '[{}](tg://user?id={}) \n'.format(name, user['id'])
+                text = '<a href="tg://user?id={}">{}</a>\n'.format(user['id'], name)
+                # text = '[{}](tg://user?id={}) \n'.format(name, user['id'])
                 texts.append(text)
 
             # 以十人為一次發送的單位
@@ -53,7 +53,7 @@ class TelegramBase:
             # 每十人傳一次訊息,避免標記後未顯示驚嘆號
             for texts in chunks_texts:
                 msg = " ".join(texts)
-                self.bot.send_message(group_id, msg, parse_mode="Markdown")
+                self.bot.send_message(group_id, msg, parse_mode="HTML")
 
     def test_tag_av8d(self):
         self.tag_av8d(1129608054)
