@@ -48,7 +48,7 @@ class TelegramBase:
                 texts.append(text)
 
             # 以十人為一次發送的單位
-            chunks_texts = chunks(texts, 10)
+            chunks_texts = chunks(texts, 5)
 
             # 每十人傳一次訊息,避免標記後未顯示驚嘆號
             for texts in chunks_texts:
