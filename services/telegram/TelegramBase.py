@@ -52,7 +52,7 @@ class TelegramBase:
 
             # 每十人傳一次訊息,避免標記後未顯示驚嘆號
             for texts in chunks_texts:
-                msg = "\n".join(texts)
+                msg = " | ".join(texts)
                 self.bot.send_message(group_id, msg, parse_mode="HTML")
 
     def test_tag_av8d(self):
